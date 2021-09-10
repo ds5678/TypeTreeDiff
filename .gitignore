@@ -1,7 +1,7 @@
 **/.vs/
 packages/
 **/packages.config
-
+obj
 Bins/
-
+bin
 *.DotSettings.user
