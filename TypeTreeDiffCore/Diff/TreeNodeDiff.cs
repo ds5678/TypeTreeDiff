@@ -40,13 +40,11 @@ namespace TypeTreeDiff.Core.Diff
             Status = DeepStatus = status;
         }
 
-        public TreeNodeDiff(TreeDump left, TreeDump right) :
-            this(left, right, true)
+        public TreeNodeDiff(TreeDump left, TreeDump right) : this(left, right, true)
         {
         }
 
-        public TreeNodeDiff(TreeNodeDump left, TreeNodeDump right) :
-            this(left, right, false)
+        public TreeNodeDiff(TreeNodeDump left, TreeNodeDump right) : this(left, right, false)
         {
         }
 

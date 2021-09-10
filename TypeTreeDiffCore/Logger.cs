@@ -8,6 +8,7 @@ namespace TypeTreeDiff.Core
 {
     public static class Logger
     {
+        public static void Info(object obj) => Info(obj.ToString());
         public static void Info(string message) => Console.WriteLine(message);
     }
 }

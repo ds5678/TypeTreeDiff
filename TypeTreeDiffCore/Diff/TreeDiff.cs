@@ -41,7 +41,7 @@ namespace TypeTreeDiff.Core.Diff
             RightBaseName = right.Inheritance.Count == 0 ? string.Empty : right.Inheritance[0] ?? throw new ArgumentNullException("BaseName");
             if (left.IsValid && right.IsValid)
             {
-                if (left.IsAbstract || right.IsAbstract)
+                if (left.IsAbstract || right.IsAbstract || left.IsPrimitive || right.IsPrimitive)
                 {
                     Status = LeftClassName == RightClassName && LeftBaseName == RightBaseName ? DiffStatus.Unchanged : DiffStatus.Changed;
                 }

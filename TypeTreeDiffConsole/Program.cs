@@ -18,6 +18,14 @@ namespace TypeTreeDiff.Console
                 {
                     var dump = DBDump.Read(args[0]);
                     Logger.Info($"Read dump file of type{dump.Type} and version {dump.Version}");
+                    Logger.Info($"It had {dump.TypeTrees.Count} classes");
+                    int count = 0;
+                    foreach(var type in dump.TypeTrees)
+                    {
+                        Logger.Info($"{type.ClassID} : {type.ClassName}");
+                        count++;
+                    }
+                    Logger.Info(count);
                 }
             }
             catch(Exception ex)

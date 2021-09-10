@@ -510,8 +510,8 @@ namespace TypeTreeDiff.Core.Dump
             reader.FindValidateLineWord(",");
             Index = ReadHexIntParameter(reader, "Index");
             reader.FindValidateLineWord(",");
-            Version = ReadHexIntParameter(reader, "Version");
-            reader.FindValidateLineWord(",");
+            //Version = ReadHexIntParameter(reader, "Version");
+            //reader.FindValidateLineWord(",");
             IsArray = ReadBoolParameter(reader, "IsArray");
             reader.FindValidateLineWord(",");
             MetaFlag = unchecked((uint)ReadHexIntParameter(reader, "MetaFlag"));
@@ -520,7 +520,7 @@ namespace TypeTreeDiff.Core.Dump
 
             int childIndent = indent + 1;
             List<TreeNodeDump> children = new List<TreeNodeDump>();
-            while (reader.PeekIndend() == childIndent)
+            while (!reader.EndOfStream && reader.PeekIndend() == childIndent)
             {
                 TreeNodeDump child = new TreeNodeDump();
                 child.ReadTypeTreeNode(reader, childIndent);

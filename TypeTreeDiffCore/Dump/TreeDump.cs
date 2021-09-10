@@ -25,6 +25,7 @@ namespace TypeTreeDiff.Core.Dump
             tree.Inheritance = Inheritance;
             tree.IsValid = IsValid;
             tree.IsAbstract = IsAbstract;
+            tree.IsPrimitive = IsPrimitive;
             return tree;
         }
 
@@ -56,7 +57,11 @@ namespace TypeTreeDiff.Core.Dump
             ReadValid(reader);
             if (IsValid)
             {
-                if (!ReadAbstract(reader))
+                if (!reader.FindLineContent())
+                {
+                    IsPrimitive = true;
+                }
+                else if (!ReadAbstract(reader))
                 {
                     ReadTypeTreeNode(reader, 0);
                 }
@@ -129,5 +134,6 @@ namespace TypeTreeDiff.Core.Dump
         public IReadOnlyList<string> Inheritance { get; private set; }
         public bool IsValid { get; private set; }
         public bool IsAbstract { get; private set; }
+        public bool IsPrimitive { get; private set; }
     }
 }

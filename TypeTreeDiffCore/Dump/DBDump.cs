@@ -57,14 +57,17 @@ namespace TypeTreeDiff.Core.Dump
 
         private void ReadInner(DumpReader reader)
         {
-            Version = ReadVersion(reader);
-            Type = ReadType(reader);
+            //Version = ReadVersion(reader);
+            //Type = ReadType(reader);
 
             List<TreeDump> trees = new List<TreeDump>();
+            //int count = 0;
             while (!ReadValidation(reader, trees))
             {
+                //Logger.Info(count);
                 TreeDump tree = TreeDump.Read(reader);
                 trees.Add(tree);
+                //count++;
             }
             TypeTrees = trees.ToArray();
         }
@@ -97,7 +100,7 @@ namespace TypeTreeDiff.Core.Dump
 
         private bool ReadValidation(DumpReader reader, IReadOnlyList<TreeDump> trees)
         {
-            reader.FindContent();
+            return !reader.FindContent();
 
             bool validation = false;
             reader.StartPeeking();

@@ -7,8 +7,7 @@ namespace TypeTreeDiff.Core.IO
 {
     public class WordReader : IDisposable
     {
-        public WordReader(Stream stream) :
-            this(stream, WordDelimiters)
+        public WordReader(Stream stream) : this(stream, WordDelimiters)
         {
         }
 
@@ -327,7 +326,7 @@ namespace TypeTreeDiff.Core.IO
                         ReadChar();
                         continue;
                 }
-
+                //Logger.Info($"Found '{c}'");
                 return true;
             }
         }

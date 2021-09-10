@@ -7,8 +7,7 @@ namespace TypeTreeDiff.Core.IO
 {
     public sealed class DumpReader : WordReader
     {
-        public DumpReader(Stream stream) :
-            base(stream, WordDelimiters.Union(DumpDelimiters))
+        public DumpReader(Stream stream) : base(stream, WordDelimiters.Union(DumpDelimiters))
         {
         }
 
