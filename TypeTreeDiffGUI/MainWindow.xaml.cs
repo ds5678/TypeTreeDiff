@@ -4,13 +4,14 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TypeTreeDiff.Core.Diff;
 
-namespace TypeTreeDiff
+namespace TypeTreeDiff.GUI
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
 	{
 		private string m_treeSortPropery;
 		private ListSortDirection m_treeSortDirection;

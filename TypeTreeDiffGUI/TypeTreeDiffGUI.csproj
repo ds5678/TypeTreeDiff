@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
+    <RootNamespace>TypeTreeDiff.GUI</RootNamespace>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\Bins\TypeTreeDiffGUI\$(Configuration)\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

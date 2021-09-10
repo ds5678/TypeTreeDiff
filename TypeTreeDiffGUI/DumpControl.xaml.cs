@@ -10,13 +10,15 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using TypeTreeDiff.Core.Diff;
+using TypeTreeDiff.Core.Dump;
 
-namespace TypeTreeDiff
+namespace TypeTreeDiff.GUI
 {
-	/// <summary>
-	/// Interaction logic for DumpControl.xaml
-	/// </summary>
-	public partial class DumpControl : UserControl
+    /// <summary>
+    /// Interaction logic for DumpControl.xaml
+    /// </summary>
+    public partial class DumpControl : UserControl
 	{
 		public enum Position
 		{

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TypeTreeDiff
+namespace TypeTreeDiff.GUI
 {
 	/// <summary>
 	/// Interaction logic for App.xaml

@@ -1,7 +1,7 @@
-﻿<Application x:Class="TypeTreeDiff.App"
+﻿<Application x:Class="TypeTreeDiff.GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TypeTreeDiff"
+             xmlns:local="clr-namespace:TypeTreeDiff.GUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

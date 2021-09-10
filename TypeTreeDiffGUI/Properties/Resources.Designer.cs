@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TypeTreeDiff.Properties
+namespace TypeTreeDiff.GUI.Properties
 {
 
 

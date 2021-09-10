@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace TypeTreeDiff
+namespace TypeTreeDiff.GUI
 {
 	public partial class DropArea : UserControl
 	{

@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\Bins\TypeTreeDiffCore\$(Configuration)\</OutputPath>
+    <RootNamespace>TypeTreeDiff.Core</RootNamespace>
   </PropertyGroup>
 
 </Project>
