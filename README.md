@@ -1,1 +1,3 @@
-Diff tool for [such](https://gist.githubusercontent.com/capntrips/659bec02ab8f65347f40bd88aa0ef059/raw/443ebfafeeb7d03321ba4b4d0afa830ee1a92962/structs.dump) kind of structures.
+# Type Tree Diff
+
+A difference tool for the struct layout dumps on the [TypeTreeDumps](https://github.com/ds5678/TypeTreeDumps) repository.

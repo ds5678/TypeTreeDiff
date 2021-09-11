@@ -4,4 +4,5 @@ packages/
 obj
 Bins/
 bin
-*.DotSettings.user
+*.user
+*.csproj.user
