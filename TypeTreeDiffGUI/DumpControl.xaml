@@ -67,16 +67,6 @@
 						<ColumnDefinition Width="auto"/>
 					</Grid.ColumnDefinitions>
 
-					<StackPanel Grid.Column="0" Orientation="Horizontal" >
-						<Label Content="Version:" FontSize="12" />
-						<Label Name="VersionLabel" FontSize="12" Content="1.0.0f1" />
-					</StackPanel>
-
-					<StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0">
-						<Label Content="Type:" FontSize="12" />
-						<Label Name="TypeLabel" FontSize="12" Content="editor" />
-					</StackPanel>
-
 					<Button Name="CopyContentButton" Grid.Column="3" Margin="0,2,5,2" Content="Copy enum" Width="80" Background="#FF898989"
 							Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
 							Click="OnCopyContentButtonClicked"/>

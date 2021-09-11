@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using TypeTreeDiff.Core.IO;
-using TypeTreeDiff.Core.Version;
 
 namespace TypeTreeDiff.Core.Dump
 {
@@ -44,8 +42,6 @@ namespace TypeTreeDiff.Core.Dump
         public DBDump Optimize()
         {
             DBDump db = new DBDump();
-            db.Version = Version;
-            db.Type = Type;
             TreeDump[] typeTrees = new TreeDump[TypeTrees.Count];
             for (int i = 0; i < TypeTrees.Count; i++)
             {
@@ -57,99 +53,20 @@ namespace TypeTreeDiff.Core.Dump
 
         private void ReadInner(DumpReader reader)
         {
-            //Version = ReadVersion(reader);
-            //Type = ReadType(reader);
-
-            List<TreeDump> trees = new List<TreeDump>();
-            //int count = 0;
+             List<TreeDump> trees = new List<TreeDump>();
             while (!ReadValidation(reader, trees))
             {
-                //Logger.Info(count);
                 TreeDump tree = TreeDump.Read(reader);
                 trees.Add(tree);
-                //count++;
             }
             TypeTrees = trees.ToArray();
-        }
-
-        private UnityVersion ReadVersion(DumpReader reader)
-        {
-            reader.FindValidateWord("version");
-            reader.ValidateWord(":");
-
-            string major = reader.FindReadLineWord();
-            reader.ValidateWord(".");
-            string minor = reader.ReadWord();
-            reader.ValidateWord(".");
-            string buildType = reader.ReadWord();
-            string versionString = $"{major}.{minor}.{buildType}";
-
-            UnityVersion version = new UnityVersion();
-            version.Parse(versionString);
-            return version;
-        }
-
-        private string ReadType(DumpReader reader)
-        {
-            reader.FindValidateLineWord("(");
-            string type = reader.ReadWord();
-            reader.FindValidateLineWord(")");
-            reader.FindValidateEOL();
-            return type;
         }
 
         private bool ReadValidation(DumpReader reader, IReadOnlyList<TreeDump> trees)
         {
             return !reader.FindContent();
-
-            bool validation = false;
-            reader.StartPeeking();
-            if (reader.ReadWord() == "//")
-            {
-                if (reader.FindReadLineWord().StartsWith("==", StringComparison.InvariantCulture))
-                {
-                    validation = true;
-                }
-            }
-            reader.FinishPeeking();
-
-            if (validation)
-            {
-                reader.ValidateWord("//");
-                reader.FindReadLineWord();
-                reader.FindValidateEOL();
-                reader.FindNextLine();
-
-                reader.ValidateWord("//");
-                reader.FindValidateLineWord("Successfully");
-                reader.FindValidateLineWord("finished");
-                reader.FindValidateLineWord(".");
-                reader.FindValidateLineWord("Written");
-                int written = reader.FindReadLineInt();
-                reader.FindValidateLineWord("of");
-                int count = reader.FindReadLineInt();
-                reader.FindValidateEOL();
-
-                if (trees.Count != count)
-                {
-                    throw new Exception($"Class count mismatch. Read {trees.Count} expected {count}");
-                }
-                int validCount = trees.Count(t => t.IsValid);
-                if (validCount != written)
-                {
-                    throw new Exception($"Valid class count mismatch. Read {validCount} expected {written}");
-                }
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
-        public UnityVersion Version { get; private set; }
-        public string Type { get; private set; }
         public IReadOnlyList<TreeDump> TypeTrees { get; private set; }
     }
 }

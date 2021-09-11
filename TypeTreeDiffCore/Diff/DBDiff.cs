@@ -18,9 +18,6 @@ namespace TypeTreeDiff.Core.Diff
                 throw new ArgumentNullException(nameof(right));
             }
 
-            LeftVersion = left.Version;
-            RightVersion = right.Version;
-
             Dictionary<int, TreeDump> leftTrees = new Dictionary<int, TreeDump>(left.TypeTrees.Count);
             foreach (TreeDump leftTree in left.TypeTrees)
             {
@@ -71,8 +68,6 @@ namespace TypeTreeDiff.Core.Diff
             TreeDiffs = treeDiffs.ToArray();
         }
 
-        public UnityVersion LeftVersion { get; }
-        public UnityVersion RightVersion { get; }
         public IReadOnlyList<TreeDiff> TreeDiffs { get; }
     }
 }

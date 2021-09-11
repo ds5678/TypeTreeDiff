@@ -109,13 +109,6 @@ namespace TypeTreeDiff.GUI
 			{
 				LeftDump.FillLeftDump(diff);
 				RightDump.FillRightDump(diff);
-
-				Color foreColor = diff.LeftVersion <= diff.RightVersion ? Colors.Black : Colors.White;
-				Color backColor = diff.LeftVersion <= diff.RightVersion ? Colors.Transparent : Colors.Red;
-				LeftDump.VersionLabel.Foreground = new SolidColorBrush(foreColor);
-				LeftDump.VersionLabel.Background = new SolidColorBrush(backColor);
-				RightDump.VersionLabel.Foreground = new SolidColorBrush(foreColor);
-				RightDump.VersionLabel.Background = new SolidColorBrush(backColor);
 			});
 		}
 

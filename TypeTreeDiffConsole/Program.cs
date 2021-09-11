@@ -17,7 +17,6 @@ namespace TypeTreeDiff.Console
                 else
                 {
                     var dump = DBDump.Read(args[0]);
-                    Logger.Info($"Read dump file of type{dump.Type} and version {dump.Version}");
                     Logger.Info($"It had {dump.TypeTrees.Count} classes");
                     int count = 0;
                     foreach(var type in dump.TypeTrees)

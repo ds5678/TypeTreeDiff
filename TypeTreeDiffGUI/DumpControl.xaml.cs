@@ -234,8 +234,6 @@ namespace TypeTreeDiff.GUI
 			DumpOptimized = Dump.Optimize();
 			Dispatcher.Invoke(() =>
 			{
-				VersionLabel.Content = Dump.Version.ToString();
-				TypeLabel.Content = Dump.Type;
 				CountLabel.Content = Dump.TypeTrees.Count.ToString();
 				ChangedStack.Visibility = Visibility.Collapsed;
 				AddedStack.Visibility = Visibility.Collapsed;
