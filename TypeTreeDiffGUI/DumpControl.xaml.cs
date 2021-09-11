@@ -216,7 +216,6 @@ namespace TypeTreeDiff.GUI
 			info.Indent = indent;
 			info.Type = DiffPosition == Position.Left ? node.LeftType : node.RightType;
 			info.Name = node.Name;
-			info.Version = DiffPosition == Position.Left ? node.LeftVersion : node.RightVersion;
 			info.Align = DiffPosition == Position.Left ? node.LeftAlign : node.RightAlign;
 			info.Status = node.Status;
 			items.Add(info);
@@ -335,10 +334,9 @@ namespace TypeTreeDiff.GUI
 		{
 			sb.Append('\t', indent).Append(node.Type).Append(' ').Append(node.Name);
 			// Nice bug, C#. Look at this beautiful piece of... code
-			sb.AppendFormat(" // ByteSize{0}{1:x}{2}, Index{3}{4:x}{5}, Version{6}{7:x}{8}, IsArray{{{9}}}, MetaFlag{10}{11:x}{12}",
+			sb.AppendFormat(" // ByteSize{0}{1:x}{2}, Index{3}{4:x}{5}, IsArray{{{6}}}, MetaFlag{7}{8:x}{9}",
 					"{", unchecked((uint)node.ByteSize), "}",
 					"{", node.Index, "}",
-					"{", node.Version, "}",
 					node.IsArray ? 1 : 0,
 					"{", node.MetaFlag, "}").AppendLine();
 			foreach (TreeNodeDump child in node.Children)
