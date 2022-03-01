@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -51,6 +52,8 @@ namespace TypeTreeDiff.GUI
 		}
 
 		public event Action EventDumpDropped;
+		public event Action<string> EventFolderDropped;
+
 		public event Action EventDumpCreated;
 
 		public event Action<string> EventDumpSortOrderChanged;
@@ -75,6 +78,7 @@ namespace TypeTreeDiff.GUI
 			InitializeComponent();
 
 			DropArea.EventFileDropped += OnFileDropped;
+			DropArea.EventFolderDropped += OnFolderDropped;
 			DropArea.Visibility = Visibility.Visible;
 			DumpListView.ItemContainerGenerator.StatusChanged += OnDumpListViewStatusChanged;
 			TypeTreeListBox.ItemContainerGenerator.StatusChanged += OnTypeTreeListBoxStatusChanged;
@@ -234,6 +238,7 @@ namespace TypeTreeDiff.GUI
 			DumpOptimized = Dump.Optimize();
 			Dispatcher.Invoke(() =>
 			{
+				FileNameLabel.Content = $"Viewing: {Path.GetFileName(filePath)}";
 				CountLabel.Content = Dump.TypeTrees.Count.ToString();
 				ChangedStack.Visibility = Visibility.Collapsed;
 				AddedStack.Visibility = Visibility.Collapsed;
@@ -350,6 +355,11 @@ namespace TypeTreeDiff.GUI
 		private void OnFileDropped(string filePath)
 		{
 			ProcessDumpFile(filePath);
+		}
+
+		private void OnFolderDropped(string folderPath)
+		{
+			EventFolderDropped?.Invoke(folderPath);
 		}
 
 		private void OnDumpListViewStatusChanged(object sender, EventArgs e)

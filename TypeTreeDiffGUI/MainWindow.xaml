@@ -17,11 +17,22 @@
 			<ColumnDefinition Width="auto"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
 
-		<control:DumpControl x:Name="LeftDump" Grid.Column="0" />
-		<Grid Grid.Column="1" Background="#FF323232" Width="3" />
-		<control:DumpControl x:Name="RightDump" Grid.Column="2" />
+		<control:DumpControl x:Name="LeftDump" Grid.Column="0" Grid.Row="0"/>
+		<Grid Grid.Column="1" Grid.Row="0" Background="#FF323232" Width="3"/>
+		<control:DumpControl x:Name="RightDump" Grid.Column="2" Grid.Row="0"/>
 
+		<Button Grid.Column="0" Grid.Row="1" Name="IndexDecreaseButton" Content="Previous"
+		        Margin="5,2,5,2" Background="#FF898989" HorizontalAlignment="Left" Width="75"
+		        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+		        Click="OnFolderIndexDecrease"/>
+		<Button Grid.Column="2" Grid.Row="1" Name="IndexIncreaseButton" Content="Next"
+		        Margin="5,2,5,2" Background="#FF898989" HorizontalAlignment="Right" Width="75"
+		        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+		        Click="OnFolderIndexIncrease"/>
 	</Grid>
-	
 </Window>
