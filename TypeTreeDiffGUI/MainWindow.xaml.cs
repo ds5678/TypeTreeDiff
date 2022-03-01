@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using TypeTreeDiff.Core.Diff;
+using TypeTreeDiff.GUI.Comparer;
 
 namespace TypeTreeDiff.GUI
 {
@@ -16,23 +16,32 @@ namespace TypeTreeDiff.GUI
 		private string m_treeSortPropery;
 		private ListSortDirection m_treeSortDirection;
 
+		private string[] folderFilePaths;
+		private int folderLeftSideFileIndex;
+
 		public MainWindow()
 		{
 			InitializeComponent();
 
 			LeftDump.DiffPosition = DumpControl.Position.Left;
 			RightDump.DiffPosition = DumpControl.Position.Right;
+			IndexIncreaseButton.Visibility = Visibility.Hidden;
+			IndexDecreaseButton.Visibility = Visibility.Hidden;
 
 			LeftDump.EventDumpDropped += OnDumpDropped;
 			RightDump.EventDumpDropped += OnDumpDropped;
+			LeftDump.EventFolderDropped += OnFolderDropped;
+			RightDump.EventFolderDropped += OnFolderDropped;
+			LeftDump.DropArea.EventFileDropped += DisableFolderDropMode;
+			RightDump.DropArea.EventFileDropped += DisableFolderDropMode;
 			LeftDump.EventDumpCreated += OnDumpCreated;
 			RightDump.EventDumpCreated += OnDumpCreated;
 			LeftDump.EventDumpSortOrderChanged += OnDumpSortOrderChanged;
 			RightDump.EventDumpSortOrderChanged += OnDumpSortOrderChanged;
 			LeftDump.EventDumpSelectionChanged += (index) => OnDumpSelectionChanged(RightDump, index);
 			RightDump.EventDumpSelectionChanged += (index) => OnDumpSelectionChanged(LeftDump, index);
-			LeftDump.EventDumpTypeTreesSelected += (classID) => OnDumpTypeTreeSelected(classID);
-			RightDump.EventDumpTypeTreesSelected += (classID) => OnDumpTypeTreeSelected(classID);
+			LeftDump.EventDumpTypeTreesSelected += OnDumpTypeTreeSelected;
+			RightDump.EventDumpTypeTreesSelected += OnDumpTypeTreeSelected;
 			LeftDump.EventDumpHeaderSizeChanged += (offset) => OnDumpHeaderSizeChanged(RightDump, LeftDump);
 			RightDump.EventDumpHeaderSizeChanged += (offset) => OnDumpHeaderSizeChanged(LeftDump, RightDump);
 			LeftDump.EventDumpScrollChanged += (offset) => OnDumpScrollChanged(RightDump, offset);
@@ -93,6 +102,56 @@ namespace TypeTreeDiff.GUI
 			RightDump.ShowDumpView();
 		}
 
+		private void OnFolderDropped(string folderPath)
+		{
+			IndexIncreaseButton.Visibility = Visibility.Visible;
+			IndexDecreaseButton.Visibility = Visibility.Visible;
+			folderLeftSideFileIndex = 0;
+			folderFilePaths = Directory.GetFiles(folderPath, string.Empty, SearchOption.TopDirectoryOnly);
+			Array.Sort(folderFilePaths, UnityVersionComparer.Instance);
+
+			if (folderFilePaths.Length > 0)
+			{
+				LeftDump.ProcessDumpFile(folderFilePaths[0]);
+
+				if (folderFilePaths.Length > 1)
+				{
+					RightDump.ProcessDumpFile(folderFilePaths[1]);
+				}
+			}
+		}
+
+		private void OnFolderIndexIncrease(object sender, RoutedEventArgs e)
+		{
+			if (folderLeftSideFileIndex == folderFilePaths.Length - 2)
+			{
+				return;
+			}
+
+			folderLeftSideFileIndex++;
+			LeftDump.ProcessDumpFile(folderFilePaths[folderLeftSideFileIndex]);
+			RightDump.ProcessDumpFile(folderFilePaths[folderLeftSideFileIndex + 1]);
+		}
+
+		private void OnFolderIndexDecrease(object sender, RoutedEventArgs e)
+		{
+			if (folderLeftSideFileIndex == 0)
+			{
+				return;
+			}
+
+			folderLeftSideFileIndex--;
+			LeftDump.ProcessDumpFile(folderFilePaths[folderLeftSideFileIndex]);
+			RightDump.ProcessDumpFile(folderFilePaths[folderLeftSideFileIndex + 1]);
+		}
+
+		private void DisableFolderDropMode(string _)
+		{
+			folderFilePaths = null;
+			IndexIncreaseButton.Visibility = Visibility.Hidden;
+			IndexDecreaseButton.Visibility = Visibility.Hidden;
+		}
+
 		private void OnDumpCreated()
 		{
 			if (LeftDump.Dump == null)
@@ -138,7 +197,7 @@ namespace TypeTreeDiff.GUI
 			RightDump.ShowTypeTreeView(classID);
 			RightDump.TypeTreeListBox.Focus();
 		}
-		
+
 		private void OnDumpHeaderSizeChanged(DumpControl dest, DumpControl source)
 		{
 			dest.DumpIDHeader.Width = source.DumpIDHeader.Width;
@@ -165,7 +224,7 @@ namespace TypeTreeDiff.GUI
 		{
 			dump.TypeTreeListBox.SelectedIndex = index;
 		}
-		
+
 		private void OnTypeTreeScrollChanged(DumpControl dump, double offset)
 		{
 			dump.SetTypeTreeScrollPosition(offset);

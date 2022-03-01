@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,6 +9,7 @@ namespace TypeTreeDiff.GUI
 	public partial class DropArea : UserControl
 	{
 		public event Action<string> EventFileDropped;
+		public event Action<string> EventFolderDropped;
 
 		public static readonly DependencyProperty ActiveDropColorProperty =
 			DependencyProperty.Register(nameof(ActiveDropColor), typeof(Color), typeof(DropArea));
@@ -55,8 +57,16 @@ namespace TypeTreeDiff.GUI
 		{
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
 			{
-				string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-				EventFileDropped?.Invoke(files[0]);
+				string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop))?[0];
+				if (Directory.Exists(filePath))
+				{
+					EventFolderDropped?.Invoke(filePath);
+				}
+				else
+				{
+					EventFileDropped?.Invoke(filePath);
+				}
+
 			}
 		}
 	}
