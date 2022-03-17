@@ -57,14 +57,24 @@ namespace TypeTreeDiff.GUI
 		{
 			if (e.Data.GetDataPresent(DataFormats.FileDrop))
 			{
-				string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop))?[0];
-				if (Directory.Exists(filePath))
+				string[] filePaths = ((string[])e.Data.GetData(DataFormats.FileDrop));
+
+				if (filePaths == null || filePaths.Length == 0)
 				{
-					EventFolderDropped?.Invoke(filePath);
+					throw new Exception("No files or folders were dropped.");
+				}
+				if (filePaths.Length > 1)
+				{
+					throw new Exception("Multiple files or folders were dropped but only one is supported.");
+				}
+
+				if (Directory.Exists(filePaths[0]))
+				{
+					EventFolderDropped?.Invoke(filePaths[0]);
 				}
 				else
 				{
-					EventFileDropped?.Invoke(filePath);
+					EventFileDropped?.Invoke(filePaths[0]);
 				}
 
 			}
