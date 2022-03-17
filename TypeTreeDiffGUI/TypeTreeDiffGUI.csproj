@@ -23,6 +23,7 @@
     <Page Remove="obj\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AssetRipper.VersionUtilities" Version="1.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>

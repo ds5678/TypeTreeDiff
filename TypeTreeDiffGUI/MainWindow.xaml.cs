@@ -108,7 +108,7 @@ namespace TypeTreeDiff.GUI
 			IndexDecreaseButton.Visibility = Visibility.Visible;
 			folderLeftSideFileIndex = 0;
 			folderFilePaths = Directory.GetFiles(folderPath, string.Empty, SearchOption.TopDirectoryOnly);
-			Array.Sort(folderFilePaths, UnityVersionComparer.Instance);
+			Array.Sort(folderFilePaths, new UnityVersionComparer());
 
 			if (folderFilePaths.Length > 0)
 			{
